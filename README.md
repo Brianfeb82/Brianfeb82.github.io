@@ -15,5 +15,5 @@ Live at: https://Brianfeb82.github.io
 
 ## Stack
 Vanilla HTML · CSS · JavaScript
-EOF
+
 
