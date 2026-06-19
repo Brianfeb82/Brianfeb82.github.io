@@ -1,310 +1,543 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nedri Febrianto</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0a0a0a;--bg2:#111;--bg3:#1a1a1a;--text:#f0f0f0;--muted:#888;--border:#222;--accent:#f0f0f0;--dim:#333}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Times New Roman',Times,serif;overflow-x:hidden}
-.mono{font-family:'Courier New',Courier,monospace}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nedri Febrianto</title>
+  <style>
+    /* ---------------------------------------------------
+       Base variables & typography scale
+       --------------------------------------------------- */
+    :root {
+      --bg: #000;
+      --bg2: #111;
+      --bg3: #1a1a1a;
+      --text: #f0f0f0;
+      --muted: #aaa;               /* softer gray for contrast */
+      --border: #222;
+      --accent: #ff6f61;           /* bold coral accent */
+      --dim: #333;
+      /* Typography scale */
+      --fs-base: 0.95rem;
+      --fs-lg: 1.25rem;
+      --fs-xl: 1.5rem;
+      --fs-xxl: 2rem;
+    }
 
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 1.5rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);background:rgba(10,10,10,0.92);backdrop-filter:blur(12px)}
-.nav-logo{font-size:.95rem;font-weight:700;letter-spacing:.08em;font-family:'Courier New',Courier,monospace}
-.nav-links{display:flex;gap:1.5rem}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;transition:color .2s}
-.nav-links a:hover{color:var(--text)}
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Times New Roman', Times, serif;
+      overflow-x: hidden;
+    }
+    .mono { font-family: 'Courier New', Courier, monospace; }
 
-#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:6rem 1.5rem 3.5rem;position:relative;overflow:hidden;border-bottom:1px solid var(--border)}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 80% 50%,rgba(255,255,255,0.03) 0%,transparent 70%)}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:.3}
-.hero-tag{font-family:'Courier New',Courier,monospace;font-size:.7rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-bottom:1.25rem;opacity:0;transform:translateY(20px);animation:fadeUp .6s .2s forwards;position:relative}
-.hero-name{font-size:clamp(3rem,12vw,7rem);font-weight:800;line-height:.95;letter-spacing:-.03em;margin-bottom:1.25rem;opacity:0;transform:translateY(30px);animation:fadeUp .7s .35s forwards;position:relative}
-.hero-name span{color:var(--muted)}
-.hero-sub{font-size:.95rem;color:var(--muted);max-width:420px;line-height:1.65;font-weight:400;opacity:0;transform:translateY(20px);animation:fadeUp .6s .55s forwards;position:relative}
-.hero-cta{margin-top:2rem;display:flex;gap:.75rem;flex-wrap:wrap;opacity:0;transform:translateY(20px);animation:fadeUp .6s .7s forwards;position:relative}
-.btn{padding:.65rem 1.4rem;border:1px solid var(--border);background:transparent;color:var(--text);font-family:'Times New Roman',Times,serif;font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:all .2s;display:inline-block}
-.btn:hover{background:var(--text);color:var(--bg)}
-.btn-ghost{color:var(--muted);border-color:var(--dim)}
-.btn-ghost:hover{background:var(--dim);color:var(--text)}
-.hero-scroll{position:absolute;bottom:1.5rem;right:1.5rem;font-family:'Courier New',Courier,monospace;font-size:.65rem;color:var(--muted);writing-mode:vertical-rl;letter-spacing:.15em;animation:fadeIn 1s 1.2s both}
+    /* ---------------------------------------------------
+       Navigation
+       --------------------------------------------------- */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+    }
+    .nav-logo { font-size: .95rem; font-weight: 700; letter-spacing: .08em; font-family: 'Courier New',Courier,monospace; }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .75rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--text); }
 
-section{padding:4rem 1.5rem;border-bottom:1px solid var(--border)}
-.section-label{font-family:'Courier New',Courier,monospace;font-size:.7rem;color:var(--muted);letter-spacing:.2em;text-transform:uppercase;margin-bottom:2.5rem;display:flex;align-items:center;gap:.75rem}
-.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+    /* ---------------------------------------------------
+       Hero Section – bold background & typography
+       --------------------------------------------------- */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 6rem 1.5rem 3.5rem;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, var(--bg), var(--bg2), var(--bg3));
+      background-size: 400% 400%;
+      animation: bgShift 20s ease infinite;
+    }
+    @keyframes bgShift {
+      0%   { background-position: 0% 0%; }
+      50%  { background-position: 100% 100%; }
+      100% { background-position: 0% 0%; }
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(var(--border) 1px, transparent 1px),
+                        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: .3;
+    }
+    .hero-tag {
+      font-family: 'Courier New',Courier,monospace;
+      font-size: .7rem;
+      color: var(--muted);
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp .6s .2s forwards;
+    }
+    .hero-name {
+      font-family: 'Montserrat', system-ui, sans-serif;
+      font-size: clamp(3rem,15vw,8rem);
+      font-weight: 900;
+      line-height: .95;
+      letter-spacing: -0.04em;
+      margin-bottom: 1.25rem;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp .7s .35s forwards;
+    }
+    .hero-name span { color: var(--muted); }
+    .hero-sub {
+      font-family: system-ui, sans-serif;
+      font-size: var(--fs-lg);
+      color: var(--muted);
+      max-width: 420px;
+      line-height: 1.65;
+      font-weight: 400;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp .6s .55s forwards;
+    }
+    .hero-cta {
+      margin-top: 2rem;
+      display: flex;
+      gap: .75rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp .6s .7s forwards;
+    }
+    .btn {
+      padding: .65rem 1.4rem;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text);
+      font-family: 'Times New Roman',Times,serif;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all .2s;
+      display: inline-block;
+    }
+    .btn:hover {
+      background: var(--accent);
+      color: var(--bg);
+    }
+    .btn-ghost {
+      color: var(--muted);
+      border-color: var(--dim);
+    }
+    .btn-ghost:hover {
+      background: var(--dim);
+      color: var(--text);
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 1.5rem; right: 1.5rem;
+      font-family: 'Courier New',Courier,monospace;
+      font-size: .65rem;
+      color: var(--muted);
+      writing-mode: vertical-rl;
+      letter-spacing: .15em;
+      animation: fadeIn 1s 1.2s both;
+    }
 
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
-.about-text h2{font-size:1.9rem;font-weight:700;line-height:1.15;margin-bottom:1rem;letter-spacing:-.02em}
-.about-text p{color:var(--muted);line-height:1.75;font-size:.95rem}
-.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border)}
-.stat-box{background:var(--bg);padding:1.25rem;display:flex;flex-direction:column;gap:.35rem}
-.stat-num{font-size:clamp(.85rem,2.5vw,1.8rem);font-weight:800;letter-spacing:-.03em}
-.stat-label{font-family:'Courier New',Courier,monospace;font-size:.65rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+    /* ---------------------------------------------------
+       Sections & common utilities
+       --------------------------------------------------- */
+    section { padding: 4rem 1.5rem; border-bottom: 1px solid var(--border); }
+    .section-label {
+      font-family: 'Courier New',Courier,monospace;
+      font-size: .7rem;
+      color: var(--muted);
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+      display: flex; align-items: center; gap: .75rem;
+    }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-.stack-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:1px;background:var(--border);margin-top:1.5rem}
-.stack-item{background:var(--bg);padding:1.1rem .9rem;display:flex;flex-direction:column;gap:.4rem;transition:background .15s;cursor:default}
-.stack-item:hover{background:var(--bg3)}
-.stack-cat{font-family:'Courier New',Courier,monospace;font-size:.6rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
-.stack-name{font-size:.9rem;font-weight:600}
+    /* ---------------------------------------------------
+       About
+       --------------------------------------------------- */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    .about-text h2 { font-size: 1.9rem; font-weight: 700; line-height: 1.15; margin-bottom: 1rem; letter-spacing: -0.02em; }
+    .about-text p { color: var(--muted); line-height: 1.75; font-size: .95rem; }
+    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
+    .stat-box { background: var(--bg); padding: 1.25rem; display: flex; flex-direction: column; gap: .35rem; }
+    .stat-num { font-size: clamp(.85rem,2.5vw,1.8rem); font-weight: 800; letter-spacing: -0.03em; }
+    .stat-label { font-family: 'Courier New',Courier,monospace; font-size: .65rem; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
 
-.projects-list{display:flex;flex-direction:column;gap:1px;background:var(--border);margin-top:1.5rem}
-.project-item{background:var(--bg);padding:1.5rem;display:grid;grid-template-columns:2rem 1fr;gap:1rem;align-items:start;transition:background .2s;position:relative;overflow:hidden}
-.project-item.clickable{cursor:pointer;text-decoration:none;color:inherit;display:grid}
-.project-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--text);transform:scaleY(0);transition:transform .25s;transform-origin:top}
-.project-item:hover{background:var(--bg2)}
-.project-item:hover::before{transform:scaleY(1)}
-.project-num{font-family:'Courier New',Courier,monospace;font-size:.72rem;color:var(--dim);padding-top:.1rem}
-.project-body h3{font-size:1rem;font-weight:700;margin-bottom:.4rem}
-.project-body p{color:var(--muted);font-size:.85rem;line-height:1.65}
-.project-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.65rem}
-.tag{font-family:'Courier New',Courier,monospace;font-size:.62rem;padding:.18rem .5rem;border:1px solid var(--dim);color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
-.project-footer{display:flex;align-items:center;justify-content:space-between;margin-top:.75rem}
-.project-status{font-family:'Courier New',Courier,monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .55rem;border:1px solid var(--dim);color:var(--muted);display:inline-block}
-.project-link-hint{font-family:'Courier New',Courier,monospace;font-size:.62rem;color:var(--dim);letter-spacing:.08em}
-.project-item.clickable:hover .project-link-hint{color:var(--text)}
+    /* ---------------------------------------------------
+       Tech Stack – horizontal carousel (desktop) / grid (mobile)
+       --------------------------------------------------- */
+    .stack-carousel {
+      display: flex;
+      overflow-x: auto;
+      gap: 1rem;
+      padding-bottom: .5rem;
+      scrollbar-width: none; -ms-overflow-style: none;
+    }
+    .stack-carousel::-webkit-scrollbar { display: none; }
+    .stack-item {
+      background: var(--bg);
+      padding: 1.1rem .9rem;
+      display: flex;
+      flex-direction: column;
+      gap: .4rem;
+      transition: background .15s;
+      cursor: default;
+      white-space: nowrap;
+    }
+    .stack-item:hover { background: var(--bg3); }
+    .stack-cat { font-family: 'Courier New',Courier,monospace; font-size: .6rem; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; }
+    .stack-name { font-size: .9rem; font-weight: 600; color: var(--text); }
+    @media (max-width: 640px) {
+      .stack-carousel { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px,1fr)); gap: 1px; }
+    }
 
-/* CONTACT — fixed alignment */
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
-.contact-left h2{font-size:2.2rem;font-weight:800;line-height:1.1;letter-spacing:-.03em;margin-bottom:1rem}
-.contact-left p{color:var(--muted);line-height:1.7;font-size:.9rem}
-.contact-links{display:flex;flex-direction:column;gap:1px;background:var(--border)}
-.contact-link{background:var(--bg);display:flex;justify-content:space-between;align-items:center;padding:1rem 1.1rem;text-decoration:none;color:var(--text);transition:background .15s;gap:1rem}
-.contact-link:hover{background:var(--bg3)}
-.contact-link-label{font-family:'Courier New',Courier,monospace;font-size:.65rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;flex-shrink:0;min-width:80px}
-.contact-link-val{font-size:.82rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;text-align:right}
-.arrow{color:var(--dim);transition:transform .2s;font-size:.85rem;flex-shrink:0}
-.contact-link:hover .arrow{transform:translateX(4px)}
+    /* ---------------------------------------------------
+       Projects – card redesign with preview placeholder
+       --------------------------------------------------- */
+    .projects-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); margin-top: 1.5rem; }
+    .project-item {
+      background: var(--bg);
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: 2rem 1fr 150px; /* number, body, preview */
+      gap: 1rem;
+      align-items: start;
+      transition: background .2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-item.clickable { cursor: pointer; text-decoration: none; color: inherit; }
+    .project-item::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+      background: var(--accent);
+      transform: scaleY(0);
+      transition: transform .25s; transform-origin: top;
+    }
+    .project-item:hover { background: var(--bg2); }
+    .project-item:hover::before { transform: scaleY(1); }
+    .project-num { font-family: 'Courier New',Courier,monospace; font-size: .72rem; color: var(--dim); padding-top: .1rem; }
+    .project-body h3 { font-size: 1rem; font-weight: 700; margin-bottom: .4rem; color: var(--text); }
+    .project-body p { color: var(--muted); font-size: .85rem; line-height: 1.65; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .65rem; }
+    .tag {
+      font-family: 'Courier New',Courier,monospace;
+      font-size: .62rem;
+      padding: .18rem .5rem;
+      border: 1px solid var(--dim);
+      background: var(--accent);
+      color: var(--bg);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .project-footer { display: flex; align-items: center; justify-content: space-between; margin-top: .75rem; }
+    .project-status { font-family: 'Courier New',Courier,monospace; font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; padding: .2rem .55rem; border: 1px solid var(--dim); color: var(--muted); display: inline-block; }
+    .project-link-hint { font-family: 'Courier New',Courier,monospace; font-size: .62rem; color: var(--dim); letter-spacing: .08em; }
+    .project-item.clickable:hover .project-link-hint { color: var(--text); }
+    .project-preview {
+      background: var(--bg2);
+      width: 150px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .8rem;
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+    @media (max-width: 640px) {
+      .project-item {
+        grid-template-columns: 2rem 1fr; /* drop preview column */
+      }
+      .project-preview { display: none; }
+    }
 
-footer{padding:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem}
-footer p{font-family:'Courier New',Courier,monospace;font-size:.65rem;color:var(--dim);letter-spacing:.1em}
+    /* ---------------------------------------------------
+       Contact
+       --------------------------------------------------- */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+    .contact-left h2 { font-size: 2.2rem; font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 1rem; }
+    .contact-left p { color: var(--muted); line-height: 1.7; font-size: .9rem; }
+    .contact-links { display: flex; flex-direction: column; gap: 1px; background: var(--border); }
+    .contact-link {
+      background: var(--bg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.1rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: background .15s;
+      gap: 1rem;
+    }
+    .contact-link:hover { background: var(--bg3); }
+    .contact-link-label { font-family: 'Courier New',Courier,monospace; font-size: .65rem; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; flex-shrink: 0; min-width: 80px; }
+    .contact-link-val { font-size: .82rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; text-align: right; }
+    .arrow { color: var(--dim); transition: transform .2s; font-size: .85rem; flex-shrink: 0; }
+    .contact-link:hover .arrow { transform: translateX(4px); }
 
-@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
-@keyframes fadeIn{to{opacity:1}}
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
-.reveal.visible{opacity:1;transform:translateY(0)}
+    /* ---------------------------------------------------
+       Footer
+       --------------------------------------------------- */
+    footer { padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; }
+    footer p { font-family: 'Courier New',Courier,monospace; font-size: .65rem; color: var(--dim); letter-spacing: .1em; }
 
-@media(max-width:640px){
-  nav{padding:.9rem 1.25rem}
-  .nav-links{gap:1rem}
-  .nav-links a{font-size:.68rem}
-  #hero{padding:5.5rem 1.25rem 3rem}
-  section{padding:3rem 1.25rem}
-  .about-grid{grid-template-columns:1fr;gap:2rem}
-  .contact-grid{grid-template-columns:1fr;gap:2rem}
-  .hero-scroll{display:none}
-  .contact-link-val{font-size:.75rem}
-}
-</style>
+    /* ---------------------------------------------------
+       Animations
+       --------------------------------------------------- */
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { to { opacity: 1; } }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s, transform .6s; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ---------------------------------------------------
+       Responsive tweaks (mobile)
+       --------------------------------------------------- */
+    @media (max-width: 640px) {
+      nav { padding: .9rem 1.25rem; }
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: .68rem; }
+      #hero { padding: 5.5rem 1.25rem 3rem; }
+      section { padding: 3rem 1.25rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-scroll { display: none; }
+      .contact-link-val { font-size: .75rem; }
+    }
+  </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-logo mono">NF</div>
-  <div class="nav-links">
-    <a href="#about">About</a>
-    <a href="#stack">Stack</a>
-    <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
-  </div>
-</nav>
-
-<section id="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-tag mono">— Data & Cloud Engineering</div>
-  <h1 class="hero-name">Nedri<br><span>Febrianto</span></h1>
-  <p class="hero-sub">Computer Science student at Gunadarma University, building real things and interested at cloud engineering.</p>
-  <div class="hero-cta">
-    <a href="#projects" class="btn">View Projects</a>
-    <a href="#contact" class="btn btn-ghost">Get in Touch</a>
-  </div>
-  <span class="hero-scroll mono">scroll down</span>
-</section>
-
-<section id="about">
-  <div class="section-label">01 — About</div>
-  <div class="about-grid reveal">
-    <div class="about-text">
-      <h2>Building With Data,<br>Learning Through Doing.</h2>
-      <p style="margin-bottom:1rem">Computer science student with a focus on Data Science and a growing interest in Cloud Engineering. Building some project - real problems, real output.</p>
-      <p>Currently in 2nd semester. The path ahead: cloud infrastructure, scalable systems, and whatever problem is interesting enough to spend a weekend on.</p>
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-logo mono">NF</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#stack">Stack</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
     </div>
-    <div class="about-stats">
-      <div class="stat-box"><span class="stat-num">Gunadarma</span><span class="stat-label mono">7 Projects Built</span></div>
-      <div class="stat-box"><span class="stat-num">University</span><span class="stat-label mono">2nd Semester</span></div>
-      <div class="stat-box"><span class="stat-num">Data science</span><span class="stat-label mono">Focus on</span></div>
-      <div class="stat-box"><span class="stat-num">Cloud Engineering</span><span class="stat-label mono">Target Path</span></div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-tag mono">— Data & Cloud Engineering</div>
+    <h1 class="hero-name">Nedri<br><span>Febrianto</span></h1>
+    <p class="hero-sub">Computer Science student at Gunadarma University, building real things and interested at cloud engineering.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn">View Projects</a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
     </div>
-  </div>
-</section>
+    <span class="hero-scroll mono">scroll down</span>
+  </section>
 
-<section id="stack">
-  <div class="section-label">02 — Tech Stack</div>
-  <div class="stack-grid reveal">
-    <div class="stack-item"><span class="stack-cat mono">Language</span><span class="stack-name">Python</span></div>
-    <div class="stack-item"><span class="stack-cat mono">Framework</span><span class="stack-name">Next.js 15</span></div>
-    <div class="stack-item"><span class="stack-cat mono">Styling</span><span class="stack-name">Tailwind CSS</span></div>
-    <div class="stack-item"><span class="stack-cat mono">AI</span><span class="stack-name">Gemini API</span></div>
-    <div class="stack-item"><span class="stack-cat mono">Database</span><span class="stack-name">PostgreSQL</span></div>
-    <div class="stack-item"><span class="stack-cat mono">Infra</span><span class="stack-name">Cloud Run</span></div>
-    <div class="stack-item"><span class="stack-cat mono">Tool</span><span class="stack-name">Git / GitHub</span></div>
-    <div class="stack-item"><span class="stack-cat mono">Cloud</span><span class="stack-name">GCP / Cloud Run</span></div>
-    <div class="stack-item"><span class="stack-cat mono">AI Infra</span><span class="stack-name">Ollama</span></div>
-    <div class="stack-item"><span class="stack-cat mono">AI Infra</span><span class="stack-name">Open WebUI</span></div>
-    <div class="stack-item"><span class="stack-cat mono">OS</span><span class="stack-name">Linux / WSL2</span></div>
-    <div class="stack-item"><span class="stack-cat mono">Agent</span><span class="stack-name">OpenClaw</span></div>
-  </div>
-</section>
-
-<section id="projects">
-  <div class="section-label">03 — Projects</div>
-  <div class="projects-list reveal">
-
-    <!-- 01 Gold — Streamlit Cloud, click to open -->
-    <a class="project-item clickable" href="https://gold-analysis.streamlit.app/" target="_blank" rel="noopener">
-      <span class="project-num mono">01</span>
-      <div class="project-body">
-        <h3>Gold Intelligence Dashboard</h3>
-        <p>Interactive dashboard analyzing 25 years of gold price history. Features ARIMA-based 30-day forecasting, Bollinger Bands, RSI, volatility heatmap, drawdown analysis, investment simulator, and PostgreSQL integration with CSV fallback.</p>
-        <div class="project-tags"><span class="tag mono">Python</span><span class="tag mono">Streamlit</span><span class="tag mono">Plotly</span><span class="tag mono">ARIMA</span><span class="tag mono">PostgreSQL</span><span class="tag mono">Pandas</span></div>
-        <div class="project-footer">
-          <span class="project-status mono">Data Science</span>
-          <span class="project-link-hint mono">streamlit cloud →</span>
-        </div>
+  <!-- About Section -->
+  <section id="about">
+    <div class="section-label">01 — About</div>
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <h2>Building With Data,<br>Learning Through Doing.</h2>
+        <p style="margin-bottom:1rem">Computer science student with a focus on Data Science and a growing interest in Cloud Engineering. Building some project - real problems, real output.</p>
+        <p>Currently in 2nd semester. The path ahead: cloud infrastructure, scalable systems, and whatever problem is interesting enough to spend a weekend on.</p>
       </div>
-    </a>
-
-    <!-- 02 Churn — Streamlit Cloud, click to open -->
-    <a class="project-item clickable" href="https://teelco-churn-app.streamlit.app/" target="_blank" rel="noopener">
-      <span class="project-num mono">02</span>
-      <div class="project-body">
-        <h3>Telco Churn Intelligence</h3>
-        <p>Streamlit app for predicting customer churn with single and batch CSV prediction modes. Uses a tree-based ML model (loaded via Pickle) with feature importance visualization, probability scoring, and downloadable results.</p>
-        <div class="project-tags"><span class="tag mono">Python</span><span class="tag mono">Streamlit</span><span class="tag mono">Scikit-learn</span><span class="tag mono">NumPy</span><span class="tag mono">Pandas</span><span class="tag mono">Pickle</span></div>
-        <div class="project-footer">
-          <span class="project-status mono">ML</span>
-          <span class="project-link-hint mono">streamlit cloud →</span>
-        </div>
+      <div class="about-stats">
+        <div class="stat-box"><span class="stat-num">Gunadarma</span><span class="stat-label mono">7 Projects Built</span></div>
+        <div class="stat-box"><span class="stat-num">University</span><span class="stat-label mono">2nd Semester</span></div>
+        <div class="stat-box"><span class="stat-num">Data science</span><span class="stat-label mono">Focus on</span></div>
+        <div class="stat-box"><span class="stat-num">Cloud Engineering</span><span class="stat-label mono">Target Path</span></div>
       </div>
-    </a>
-
-    <!-- 03 E-Commerce — Streamlit Cloud, click to open -->
-    <a class="project-item clickable" href="https://ecommerce-analytics-iazfqm4xugi6kuwj5fweut.streamlit.app/" target="_blank" rel="noopener">
-      <span class="project-num mono">03</span>
-      <div class="project-body">
-        <h3>E-Commerce Analytics Dashboard</h3>
-        <p>End-to-end e-commerce analysis using Kaggle dataset. Covers data collection, EDA, and predictive modeling across 3 notebooks, with a Streamlit app for interactive exploration of sales trends, customer segmentation, and KPI reporting.</p>
-        <div class="project-tags"><span class="tag mono">Python</span><span class="tag mono">Pandas</span><span class="tag mono">Scikit-learn</span><span class="tag mono">Streamlit</span><span class="tag mono">Jupyter</span><span class="tag mono">Kaggle</span></div>
-        <div class="project-footer">
-          <span class="project-status mono">Analytics</span>
-          <span class="project-link-hint mono">streamlit cloud →</span>
-        </div>
-      </div>
-    </a>
-
-    <!-- 04 WA Bot — LinkedIn video demo -->
-    <a class="project-item clickable" href="https://linkedin.com/in/nedri-febrianto" target="_blank" rel="noopener">
-      <span class="project-num mono">04</span>
-      <div class="project-body">
-        <h3>WhatsApp AI Automation</h3>
-        <p>Monorepo-based WhatsApp automation platform built with TypeScript and Node.js. Multi-package pnpm workspace, PM2 process management, Groq API integration for AI responses, and PowerShell scripts for deployment.</p>
-        <div class="project-tags"><span class="tag mono">TypeScript</span><span class="tag mono">Node.js</span><span class="tag mono">pnpm</span><span class="tag mono">Groq API</span><span class="tag mono">PM2</span><span class="tag mono">WhatsApp API</span></div>
-        <div class="project-footer">
-          <span class="project-status mono">Automation</span>
-          <span class="project-link-hint mono">watch demo →</span>
-        </div>
-      </div>
-    </a>
-
-    <!-- 05 StudySpark — Google Cloud -->
-    <a class="project-item clickable" href="https://studyspark-ai-694784171804.asia-southeast2.run.app" target="_blank" rel="noopener">
-      <span class="project-num mono">05</span>
-      <div class="project-body">
-        <h3>StudySpark AI — JuaraVibeCoding</h3>
-        <p>AI study assistant built for Google's #JuaraVibeCoding event. Upload any lecture PDF and instantly get an AI-generated summary, quiz, flashcards, ELI5 explanation, study planner, and exam mode with predicted questions — powered by Gemini API with PDF extraction running server-side on Cloud Run.</p>
-        <div class="project-tags"><span class="tag mono">Next.js 15</span><span class="tag mono">TypeScript</span><span class="tag mono">Gemini API</span><span class="tag mono">Firebase</span><span class="tag mono">Cloud Run</span><span class="tag mono">Tailwind CSS</span><span class="tag mono">Docker</span></div>
-        <div class="project-footer">
-          <span class="project-status mono">AI / Full-stack</span>
-          <span class="project-link-hint mono">google cloud →</span>
-        </div>
-      </div>
-    </a>
-
-    <!-- 06 Local AI Stack -->
-    <a class="project-item clickable" href="https://linkedin.com/in/nedri-febrianto" target="_blank" rel="noopener">
-      <span class="project-num mono">06</span>
-      <div class="project-body">
-        <h3>Self-Hosted Multi-Provider AI Stack</h3>
-        <p>Built a zero-cost local AI infrastructure on a ThinkPad T14 running Linux. Deployed Ollama with multiple open-weight models (Qwen2.5, Llama3.1), Open WebUI as a self-hosted chat interface, and 9Router as a unified API gateway aggregating OpenRouter, Gemini, OpenCode, and Ollama Cloud into a single endpoint. Integrated OpenClaw as an AI agent accessible via Telegram, Discord, and WhatsApp — with automatic model fallback chains and SQLite database debugging under the hood.</p>
-        <div class="project-tags"><span class="tag mono">Ollama</span><span class="tag mono">Open WebUI</span><span class="tag mono">OpenClaw</span><span class="tag mono">9Router</span><span class="tag mono">Linux</span><span class="tag mono">SQLite</span><span class="tag mono">REST API</span><span class="tag mono">Telegram Bot</span></div>
-        <div class="project-footer">
-          <span class="project-status mono">AI Infra</span>
-          <span class="project-link-hint mono">watch demo →</span>
-        </div>
-      </div>
-    </a>
-
-    <!-- 07 LocalWave PWA -->
-    <a class="project-item clickable" href="https://github.com/Brianfeb82" target="_blank" rel="noopener">
-      <span class="project-num mono">07</span>
-      <div class="project-body">
-        <h3>LocalWave — Offline Music PWA</h3>
-        <p>Next.js Progressive Web App for offline music playback hosted on GitHub Pages. Implemented service worker caching strategies, PWA manifest configuration, and resolved basePath conflicts in next.config.mjs for static export compatibility.</p>
-        <div class="project-tags"><span class="tag mono">Next.js</span><span class="tag mono">PWA</span><span class="tag mono">Service Worker</span><span class="tag mono">GitHub Pages</span><span class="tag mono">TypeScript</span></div>
-        <div class="project-footer">
-          <span class="project-status mono">Web / PWA</span>
-          <span class="project-link-hint mono">github →</span>
-        </div>
-      </div>
-    </a>
-
-  </div>
-</section>
-
-<section id="contact">
-  <div class="section-label">04 — Contact</div>
-  <div class="contact-grid reveal">
-    <div class="contact-left">
-      <h2>Let's<br>connect.</h2>
-      <p style="margin-top:1rem">Open to collaboration, internships, and interesting problems. Reach out through any channel below.</p>
     </div>
-    <div class="contact-links">
-      <a class="contact-link" href="mailto:brian.feb876@gmail.com">
-        <span class="contact-link-label mono">Email</span>
-        <span class="contact-link-val">brian.feb876@gmail.com</span>
-        <span class="arrow">→</span>
+  </section>
+
+  <!-- Tech Stack Section (carousel) -->
+  <section id="stack">
+    <div class="section-label">02 — Tech Stack</div>
+    <div class="stack-carousel reveal">
+      <div class="stack-item"><span class="stack-cat mono">Language</span><span class="stack-name">Python</span></div>
+      <div class="stack-item"><span class="stack-cat mono">Framework</span><span class="stack-name">Next.js 15</span></div>
+      <div class="stack-item"><span class="stack-cat mono">Styling</span><span class="stack-name">Tailwind CSS</span></div>
+      <div class="stack-item"><span class="stack-cat mono">AI</span><span class="stack-name">Gemini API</span></div>
+      <div class="stack-item"><span class="stack-cat mono">Database</span><span class="stack-name">PostgreSQL</span></div>
+      <div class="stack-item"><span class="stack-cat mono">Infra</span><span class="stack-name">Cloud Run</span></div>
+      <div class="stack-item"><span class="stack-cat mono">Tool</span><span class="stack-name">Git / GitHub</span></div>
+      <div class="stack-item"><span class="stack-cat mono">Cloud</span><span class="stack-name">GCP / Cloud Run</span></div>
+      <div class="stack-item"><span class="stack-cat mono">AI Infra</span><span class="stack-name">Ollama</span></div>
+      <div class="stack-item"><span class="stack-cat mono">AI Infra</span><span class="stack-name">Open WebUI</span></div>
+      <div class="stack-item"><span class="stack-cat mono">OS</span><span class="stack-name">Linux / WSL2</span></div>
+      <div class="stack-item"><span class="stack-cat mono">Agent</span><span class="stack-name">OpenClaw</span></div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects">
+    <div class="section-label">03 — Projects</div>
+    <div class="projects-list reveal">
+      <!-- 01 Gold -->
+      <a class="project-item clickable" href="https://gold-analysis.streamlit.app/" target="_blank" rel="noopener">
+        <span class="project-num mono">01</span>
+        <div class="project-body">
+          <h3>Gold Intelligence Dashboard</h3>
+          <p>Interactive dashboard analyzing 25 years of gold price history. Features ARIMA‑based 30‑day forecasting, Bollinger Bands, RSI, volatility heatmap, drawdown analysis, investment simulator, and PostgreSQL integration with CSV fallback.</p>
+          <div class="project-tags">
+            <span class="tag mono">Python</span><span class="tag mono">Streamlit</span><span class="tag mono">Plotly</span><span class="tag mono">ARIMA</span><span class="tag mono">PostgreSQL</span><span class="tag mono">Pandas</span>
+          </div>
+          <div class="project-footer">
+            <span class="project-status mono">Data Science</span>
+            <span class="project-link-hint mono">streamlit cloud →</span>
+          </div>
+        </div>
+        <div class="project-preview mono">Preview</div>
       </a>
-      <a class="contact-link" href="https://github.com/Brianfeb82" target="_blank">
-        <span class="contact-link-label mono">GitHub</span>
-        <span class="contact-link-val">Brianfeb82</span>
-        <span class="arrow">→</span>
+      <!-- 02 Churn -->
+      <a class="project-item clickable" href="https://teelco-churn-app.streamlit.app/" target="_blank" rel="noopener">
+        <span class="project-num mono">02</span>
+        <div class="project-body">
+          <h3>Telco Churn Intelligence</h3>
+          <p>Streamlit app for predicting customer churn with single and batch CSV prediction modes. Uses a tree‑based ML model (loaded via Pickle) with feature importance visualization, probability scoring, and downloadable results.</p>
+          <div class="project-tags"><span class="tag mono">Python</span><span class="tag mono">Streamlit</span><span class="tag mono">Scikit‑learn</span><span class="tag mono">NumPy</span><span class="tag mono">Pandas</span><span class="tag mono">Pickle</span></div>
+          <div class="project-footer"><span class="project-status mono">ML</span><span class="project-link-hint mono">streamlit cloud →</span></div>
+        </div>
+        <div class="project-preview mono">Preview</div>
       </a>
-      <a class="contact-link" href="https://linkedin.com/in/nedri-febrianto" target="_blank">
-        <span class="contact-link-label mono">LinkedIn</span>
-        <span class="contact-link-val">Nedri Febrianto</span>
-        <span class="arrow">→</span>
+      <!-- 03 E‑Commerce -->
+      <a class="project-item clickable" href="https://ecommerce-analytics-iazfqm4xugi6kuwj5fweut.streamlit.app/" target="_blank" rel="noopener">
+        <span class="project-num mono">03</span>
+        <div class="project-body">
+          <h3>E‑Commerce Analytics Dashboard</h3>
+          <p>End‑to‑end e‑commerce analysis using Kaggle dataset. Covers data collection, EDA, and predictive modeling across 3 notebooks, with a Streamlit app for interactive exploration of sales trends, customer segmentation, and KPI reporting.</p>
+          <div class="project-tags"><span class="tag mono">Python</span><span class="tag mono">Pandas</span><span class="tag mono">Scikit‑learn</span><span class="tag mono">Streamlit</span><span class="tag mono">Jupyter</span><span class="tag mono">Kaggle</span></div>
+          <div class="project-footer"><span class="project-status mono">Analytics</span><span class="project-link-hint mono">streamlit cloud →</span></div>
+        </div>
+        <div class="project-preview mono">Preview</div>
       </a>
-      <a class="contact-link" href="https://wa.me/6282133985376" target="_blank">
-        <span class="contact-link-label mono">WhatsApp</span>
-        <span class="contact-link-val">+62 821-3398-5376</span>
-        <span class="arrow">→</span>
+      <!-- 04 WA Bot -->
+      <a class="project-item clickable" href="https://linkedin.com/in/nedri-febrianto" target="_blank" rel="noopener">
+        <span class="project-num mono">04</span>
+        <div class="project-body">
+          <h3>WhatsApp AI Automation</h3>
+          <p>Monorepo‑based WhatsApp automation platform built with TypeScript and Node.js. Multi‑package pnpm workspace, PM2 process management, Groq API integration for AI responses, and PowerShell scripts for deployment.</p>
+          <div class="project-tags"><span class="tag mono">TypeScript</span><span class="tag mono">Node.js</span><span class="tag mono">pnpm</span><span class="tag mono">Groq API</span><span class="tag mono">PM2</span><span class="tag mono">WhatsApp API</span></div>
+          <div class="project-footer"><span class="project-status mono">Automation</span><span class="project-link-hint mono">watch demo →</span></div>
+        </div>
+        <div class="project-preview mono">Preview</div>
+      </a>
+      <!-- 05 StudySpark -->
+      <a class="project-item clickable" href="https://studyspark-ai-694784171804.asia-southeast2.run.app" target="_blank" rel="noopener">
+        <span class="project-num mono">05</span>
+        <div class="project-body">
+          <h3>StudySpark AI — JuaraVibeCoding</h3>
+          <p>AI study assistant built for Google's #JuaraVibeCoding event. Upload any lecture PDF and instantly get an AI‑generated summary, quiz, flashcards, ELI5 explanation, study planner, and exam mode with predicted questions — powered by Gemini API with PDF extraction running server‑side on Cloud Run.</p>
+          <div class="project-tags"><span class="tag mono">Next.js 15</span><span class="tag mono">TypeScript</span><span class="tag mono">Gemini API</span><span class="tag mono">Firebase</span><span class="tag mono">Cloud Run</span><span class="tag mono">Tailwind CSS</span><span class="tag mono">Docker</span></div>
+          <div class="project-footer"><span class="project-status mono">AI / Full‑stack</span><span class="project-link-hint mono">google cloud →</span></div>
+        </div>
+        <div class="project-preview mono">Preview</div>
+      </a>
+      <!-- 06 Local AI Stack -->
+      <a class="project-item clickable" href="https://linkedin.com/in/nedri-febrianto" target="_blank" rel="noopener">
+        <span class="project-num mono">06</span>
+        <div class="project-body">
+          <h3>Self‑Hosted Multi‑Provider AI Stack</h3>
+          <p>Built a zero‑cost local AI infrastructure on a ThinkPad T14 running Linux. Deployed Ollama with multiple open‑weight models (Qwen2.5, Llama3.1), Open WebUI as a self‑hosted chat interface, and 9Router as a unified API gateway aggregating OpenRouter, Gemini, OpenCode, and Ollama Cloud into a single endpoint. Integrated OpenClaw as an AI agent accessible via Telegram, Discord, and WhatsApp — with automatic model fallback chains and SQLite database debugging under the hood.</p>
+          <div class="project-tags"><span class="tag mono">Ollama</span><span class="tag mono">Open WebUI</span><span class="tag mono">OpenClaw</span><span class="tag mono">9Router</span><span class="tag mono">Linux</span><span class="tag mono">SQLite</span><span class="tag mono">REST API</span><span class="tag mono">Telegram Bot</span></div>
+          <div class="project-footer"><span class="project-status mono">AI Infra</span><span class="project-link-hint mono">watch demo →</span></div>
+        </div>
+        <div class="project-preview mono">Preview</div>
+      </a>
+      <!-- 07 LocalWave PWA -->
+      <a class="project-item clickable" href="https://github.com/Brianfeb82" target="_blank" rel="noopener">
+        <span class="project-num mono">07</span>
+        <div class="project-body">
+          <h3>LocalWave — Offline Music PWA</h3>
+          <p>Next.js Progressive Web App for offline music playback hosted on GitHub Pages. Implemented service worker caching strategies, PWA manifest configuration, and resolved basePath conflicts in next.config.mjs for static export compatibility.</p>
+          <div class="project-tags"><span class="tag mono">Next.js</span><span class="tag mono">PWA</span><span class="tag mono">Service Worker</span><span class="tag mono">GitHub Pages</span><span class="tag mono">TypeScript</span></div>
+          <div class="project-footer"><span class="project-status mono">Web / PWA</span><span class="project-link-hint mono">github →</span></div>
+        </div>
+        <div class="project-preview mono">Preview</div>
       </a>
     </div>
-  </div>
-</section>
+  </section>
 
-<footer>
-  <p class="mono">© 2026 Nedri Febrianto</p>
-  <p class="mono">Data Science · Cloud Engineering</p>
-</footer>
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="section-label">04 — Contact</div>
+    <div class="contact-grid reveal">
+      <div class="contact-left">
+        <h2>Let's<br>connect.</h2>
+        <p style="margin-top:1rem">Open to collaboration, internships, and interesting problems. Reach out through any channel below.</p>
+      </div>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:brian.feb876@gmail.com">
+          <span class="contact-link-label mono">Email</span>
+          <span class="contact-link-val">brian.feb876@gmail.com</span>
+          <span class="arrow">→</span>
+        </a>
+        <a class="contact-link" href="https://github.com/Brianfeb82" target="_blank">
+          <span class="contact-link-label mono">GitHub</span>
+          <span class="contact-link-val">Brianfeb82</span>
+          <span class="arrow">→</span>
+        </a>
+        <a class="contact-link" href="https://linkedin.com/in/nedri-febrianto" target="_blank">
+          <span class="contact-link-label mono">LinkedIn</span>
+          <span class="contact-link-val">Nedri Febrianto</span>
+          <span class="arrow">→</span>
+        </a>
+        <a class="contact-link" href="https://wa.me/6282133985376" target="_blank">
+          <span class="contact-link-label mono">WhatsApp</span>
+          <span class="contact-link-val">+62 821‑3398‑5376</span>
+          <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
 
-<script>
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible') })
-}, {threshold: 0.12});
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-</script>
+  <!-- Footer -->
+  <footer>
+    <p class="mono">© 2026 Nedri Febrianto</p>
+    <p class="mono">Data Science · Cloud Engineering</p>
+  </footer>
+
+  <script>
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') })
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  </script>
 </body>
 </html>
