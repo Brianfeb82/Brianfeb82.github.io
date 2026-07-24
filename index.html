@@ -128,12 +128,12 @@
   .station-log{
     position:absolute; left:8vw; top:50%; transform:translateY(-50%);
     max-width:min(520px,84vw); max-height:78vh; overflow-y:auto;
-    opacity:0; transition:opacity .4s ease; pointer-events:auto;
+    opacity:0; transition:opacity .4s ease, visibility .4s ease; pointer-events:none; visibility:hidden;
     text-decoration:none; color:inherit; -webkit-overflow-scrolling:touch;
     scrollbar-width:none;
   }
   .station-log::-webkit-scrollbar{ display:none; }
-  .station-log.active{opacity:1;}
+  .station-log.active{opacity:1; pointer-events:auto; visibility:visible;}
   .log-index{
     font-family:'Space Mono',monospace; font-size:.68rem; letter-spacing:.16em; color:var(--muted);
     margin-bottom:.9rem; display:flex; align-items:center; gap:10px;
