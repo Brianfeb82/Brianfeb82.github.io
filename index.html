@@ -236,6 +236,7 @@ canvas {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
+  pointer-events: auto;
 }
 
 .btn:hover {
@@ -332,6 +333,54 @@ canvas {
   color: var(--muted);
   letter-spacing: 0.15em;
   pointer-events: none;
+}
+
+/* MOBILE NAVIGATION BUTTONS */
+.mobile-nav-buttons {
+  position: fixed;
+  bottom: 6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: none;
+  gap: 1rem;
+  pointer-events: auto;
+}
+
+.nav-arrow {
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--line);
+  background: rgba(10, 10, 13, 0.9);
+  backdrop-filter: blur(12px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-arrow:active {
+  background: var(--glow);
+  color: var(--void);
+  border-color: var(--glow);
+  transform: scale(0.95);
+}
+
+.nav-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.nav-arrow:disabled:active {
+  background: rgba(10, 10, 13, 0.9);
+  color: var(--text);
+  transform: scale(1);
 }
 
 #loading {
@@ -468,11 +517,16 @@ canvas {
   .scroll-hint {
     bottom: 5rem;
     font-size: 0.62rem;
+    display: none;
   }
   
   .section-counter {
     bottom: 3.5rem;
     font-size: 0.65rem;
+  }
+  
+  .mobile-nav-buttons {
+    display: flex;
   }
   
   .card-title,
@@ -677,6 +731,11 @@ canvas {
   <span id="current-section">01</span> / <span id="total-sections">13</span>
 </div>
 
+<div class="mobile-nav-buttons">
+  <button class="nav-arrow" id="nav-prev" aria-label="Previous section">←</button>
+  <button class="nav-arrow" id="nav-next" aria-label="Next section">→</button>
+</div>
+
 <div class="section-indicator"></div>
 
 <div id="progress-track">
@@ -820,6 +879,42 @@ canvas {
         dot.classList.add('active');
       } else {
         dot.classList.remove('active');
+      }
+    });
+    
+    // Update mobile nav button states
+    updateNavButtons();
+  }
+  
+  // Mobile navigation buttons
+  var navPrevBtn = document.getElementById('nav-prev');
+  var navNextBtn = document.getElementById('nav-next');
+  
+  function updateNavButtons() {
+    if (navPrevBtn && navNextBtn) {
+      navPrevBtn.disabled = targetSection === 0;
+      navNextBtn.disabled = targetSection === numSections - 1;
+    }
+  }
+  
+  if (navPrevBtn) {
+    navPrevBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (targetSection > 0) {
+        targetSection--;
+        updateContent(targetSection);
+        updateIndicators();
+      }
+    });
+  }
+  
+  if (navNextBtn) {
+    navNextBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (targetSection < numSections - 1) {
+        targetSection++;
+        updateContent(targetSection);
+        updateIndicators();
       }
     });
   }
