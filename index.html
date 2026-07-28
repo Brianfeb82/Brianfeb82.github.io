@@ -436,16 +436,18 @@ canvas {
   .section-indicator {
     right: 1rem;
     gap: 0.6rem;
+    display: none;
   }
   
   .indicator-dot {
-    width: 8px;
-    height: 8px;
+    width: 44px;
+    height: 44px;
     min-width: 44px;
     min-height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
+    background: transparent;
   }
   
   .indicator-dot::before {
@@ -453,8 +455,14 @@ canvas {
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    background: inherit;
-    box-shadow: inherit;
+    background: var(--line);
+    transition: all 0.3s ease;
+  }
+  
+  .indicator-dot.active::before {
+    background: var(--glow);
+    box-shadow: 0 0 8px var(--glow);
+    transform: scale(1.6);
   }
   
   .scroll-hint {
@@ -764,8 +772,8 @@ canvas {
   }
 
   // Camera orbit parameters
-  var orbitRadius = 28;
-  var orbitHeight = 3;
+  var orbitRadius = isMobile ? 35 : 28;
+  var orbitHeight = isMobile ? 2 : 3;
   var targetSection = 0;
   var currentAngle = 0;
   var numSections = 13;
