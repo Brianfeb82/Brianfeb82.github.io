@@ -877,7 +877,7 @@ canvas {
   var orbitHeight = isMobile ? 2 : 3;
   var targetSection = 0;
   var currentAngle = 0;
-  var numSections = 13;
+  var numSections = 16;
 
   // Content management
   var cards = document.querySelectorAll('.content-card');
@@ -964,10 +964,13 @@ canvas {
   // Navigation
   document.querySelectorAll('[data-section]').forEach(function(el) {
     el.addEventListener('click', function(e) {
-      e.preventDefault();
-      targetSection = parseInt(this.dataset.section);
-      updateContent(targetSection);
-      updateIndicators();
+      var section = this.dataset.section;
+      if (section !== undefined) {
+        e.preventDefault();
+        targetSection = parseInt(section, 10);
+        updateContent(targetSection);
+        updateIndicators();
+      }
     });
   });
 
