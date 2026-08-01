@@ -149,14 +149,16 @@ canvas {
   padding: 2rem;
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s ease;
   pointer-events: none;
+  visibility: hidden;
 }
 
 .content-card.active {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
+  visibility: visible;
 }
 
 .card-title,
