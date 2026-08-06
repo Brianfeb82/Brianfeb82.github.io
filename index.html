@@ -553,8 +553,8 @@ canvas {
     <a href="#" data-section="1">About</a>
     <a href="#" data-section="2">Stack</a>
     <a href="#" data-section="3">Projects</a>
-    <a href="#" data-section="12">Certificates</a>
-    <a href="#" data-section="14">Contact</a>
+    <a href="#" data-section="14">Certificates</a>
+    <a href="#" data-section="16">Contact</a>
   </div>
 </nav>
 
@@ -570,7 +570,7 @@ canvas {
       <p class="card-subtitle">Computer Science student at Universitas Gunadarma.</p>
       <div class="card-links">
         <a href="#" class="btn" data-section="2">View Projects</a>
-        <a href="#" class="btn btn-ghost" data-section="15">Get in Touch</a>
+        <a href="#" class="btn btn-ghost" data-section="16">Get in Touch</a>
       </div>
     </div>
 
@@ -731,9 +731,23 @@ canvas {
       </div>
     </div>
 
-    <!-- SECTION 13: CERTIFICATE 01 -->
+    <!-- SECTION 13: PROJECT 11 -->
     <div class="content-card" data-section="13">
-      <div class="card-tag mono">WAYPOINT 13 — CERTIFICATE 01</div>
+      <div class="card-tag mono">WAYPOINT 13 — PROJECT 11</div>
+      <h2 class="card-title">JAVA — 3D Wine Showcase</h2>
+      <p class="card-body">Cinematic, scroll-driven product site for a fictional winery on the slopes of Mount Bromo. A procedural 3D bottle floats in a custom GLSL water shader and rises out of it as you scroll — with GSAP ScrollTrigger choreography, a scroll-bound camera rig, per-product glass tints and backdrop shifts, and a grain-overlay editorial layout. Built with Next.js 15 and React Three Fiber.</p>
+      <div class="card-stack">
+        <span>Next.js 15</span><span>React Three Fiber</span><span>Three.js</span><span>GLSL</span><span>GSAP</span><span>Tailwind CSS</span><span>Vercel</span>
+      </div>
+      <div class="card-links">
+        <a href="https://java-wines.vercel.app" target="_blank" class="btn">Live Demo ↗</a>
+        <a href="https://github.com/Brianfeb82/java-wines" target="_blank" class="btn btn-ghost">GitHub ↗</a>
+      </div>
+    </div>
+
+    <!-- SECTION 14: CERTIFICATE 01 -->
+    <div class="content-card" data-section="14">
+      <div class="card-tag mono">WAYPOINT 14 — CERTIFICATE 01</div>
       <h2 class="card-title">Google Certificate</h2>
       <p class="card-body">Issued through Google's verifier system for Nedri Febrianto. Verification code: JVC2605‑32WN‑G9FB.</p>
       <div class="card-stack">
@@ -741,9 +755,9 @@ canvas {
       </div>
     </div>
 
-    <!-- SECTION 14: CERTIFICATE 02 -->
-    <div class="content-card" data-section="14">
-      <div class="card-tag mono">WAYPOINT 14 — CERTIFICATE 02</div>
+    <!-- SECTION 15: CERTIFICATE 02 -->
+    <div class="content-card" data-section="15">
+      <div class="card-tag mono">WAYPOINT 15 — CERTIFICATE 02</div>
       <h2 class="card-title">Microsoft Elevate Training</h2>
       <p class="card-body">14 hours in Data Science with Microsoft Fabric and building Gen AI apps with Microsoft Azure. Issued 03 June 2026.</p>
       <div class="card-stack">
@@ -751,9 +765,9 @@ canvas {
       </div>
     </div>
 
-    <!-- SECTION 15: CONTACT -->
-    <div class="content-card" data-section="15">
-      <div class="card-tag mono">WAYPOINT 15 — CONTACT</div>
+    <!-- SECTION 16: CONTACT -->
+    <div class="content-card" data-section="16">
+      <div class="card-tag mono">WAYPOINT 16 — CONTACT</div>
       <h2 class="card-title">Let's Connect</h2>
       <p class="card-body">Open to collaboration, internships, and interesting problems. Reach out through any channel below.</p>
       <div class="card-links">
@@ -772,7 +786,7 @@ canvas {
 <div class="scroll-hint">↓ SCROLL TO ORBIT</div>
 
 <div class="section-counter">
-  <span id="current-section">01</span> / <span id="total-sections">16</span>
+  <span id="current-section">01</span> / <span id="total-sections">17</span>
 </div>
 
 <div class="mobile-nav-buttons">
@@ -879,7 +893,7 @@ canvas {
   var orbitHeight = isMobile ? 2 : 3;
   var targetSection = 0;
   var currentAngle = 0;
-  var numSections = 16;
+  var numSections = 17;
 
   // Content management
   var cards = document.querySelectorAll('.content-card');
