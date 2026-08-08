@@ -980,8 +980,10 @@ canvas {
   // Navigation
   document.querySelectorAll('[data-section]').forEach(function(el) {
     el.addEventListener('click', function(e) {
+      var link = e.target.closest('a');
       var section = this.dataset.section;
       if (section !== undefined) {
+        if (link && link.dataset.section === undefined) return;
         e.preventDefault();
         targetSection = parseInt(section, 10);
         updateContent(targetSection);
